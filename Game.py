@@ -61,7 +61,8 @@ while running:
     pygame.draw.circle(screen, "red", enemy2, melee_enemy.size)
 
     
-    def enemy_movement(enemy_pos):    
+    def enemy_movement(enemy_pos):  
+        if math.dist((enemy_pos), (player_pos)) > 50:  
             if enemy_pos.x < player_pos.x:
                 enemy_pos.x += melee_enemy.speed
             if enemy_pos.y < player_pos.y:
@@ -89,3 +90,7 @@ while running:
     dt = clock.tick(60) / 1000
 pygame.quit()
 
+# hitbox
+# spawn timer
+# add new enemies after timer
+# hits 
