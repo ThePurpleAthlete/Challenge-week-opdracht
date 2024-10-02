@@ -19,14 +19,24 @@ dt = 0
 dt = clock.tick(60) / 1000
 a = 2
 class entity:
-    def __init__(character, size, hp, damage, speed): 
+    def __init__(character, name, size, hp, damage, speed): 
+        character.name = name
         character.size = size
         character.hp = hp
         character.damage = damage
-        character.speed = speed
+        character.speed = speed    
 
-player = entity(medium, 100, 10, 300 * dt)
-melee_enemy = entity(medium, 30, 10, 150 * dt)
+class enemy(entity):
+    def __init__(character, name, size, hp, damage, speed):
+        super().__init__(character, name, size, hp, damage, speed)
+
+class player(entity):
+    def __init__(character, name, size, hp, damage, speed):
+        super().__init__(character, name, size, hp, damage, speed)
+       
+
+self = player("player", medium, 50, 10, 300 * dt)
+melee_enemy = enemy("melee_enemy", medium, 30, 10, 150 * dt)
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 
 while running:
@@ -74,6 +84,9 @@ while running:
 
     enemy_movement(enemy1)
     enemy_movement(enemy2)
+
+
+        
 
     def border(player_pos):  
         if player_pos.x < 0: player_pos.x = 0
