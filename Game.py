@@ -11,7 +11,6 @@ medium = 25
 big = 40
 dt = 0
 dt = clock.tick(60) / 1000
-# ???
 a = 2
 class entity:
     def __init__(character, size, hp, damage, speed): 
