@@ -61,27 +61,18 @@ while running:
     pygame.draw.circle(screen, "red", enemy2, melee_enemy.size)
 
     
-    def enemy_movement(enemy_pos):
-        if enemy_pos.x < player_pos.x:
-            enemy_pos.x += melee_enemy.speed
-        if enemy_pos.y < player_pos.y:
-            enemy_pos.y += melee_enemy.speed
-        if enemy_pos.x > player_pos.x:
-            enemy_pos.x -= melee_enemy.speed
-        if enemy_pos.y > player_pos.y:
-            enemy_pos.y -= melee_enemy.speed
+    def enemy_movement(enemy_pos):    
+            if enemy_pos.x < player_pos.x:
+                enemy_pos.x += melee_enemy.speed
+            if enemy_pos.y < player_pos.y:
+                enemy_pos.y += melee_enemy.speed
+            if enemy_pos.x > player_pos.x:
+                enemy_pos.x -= melee_enemy.speed
+            if enemy_pos.y > player_pos.y:
+                enemy_pos.y -= melee_enemy.speed
 
     enemy_movement(enemy1)
     enemy_movement(enemy2)
-
-    # if enemy1.x < player_pos.x:
-    #     enemy1.x += melee_enemy.speed
-    # if enemy1.y < player_pos.y:
-    #     enemy1.y += melee_enemy.speed
-    # if enemy1.x > player_pos.x:
-    #     enemy1.x -= melee_enemy.speed
-    # if enemy1.y > player_pos.y:
-    #     enemy1.y -= melee_enemy.speed
 
     def border(player_pos):  
         if player_pos.x < 0: player_pos.x = 0
