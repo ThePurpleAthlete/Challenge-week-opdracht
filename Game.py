@@ -3,7 +3,13 @@ import random
 import time
 import math
 pygame.init()
-screen = pygame.display.set_mode((1280, 720))
+
+height = 1280
+width = 720
+screen = pygame.display.set_mode((height, width))
+pygame.display.set_caption('achtergrond')
+acht = pygame.image.load(r"achtergrond.png").convert()
+
 clock = pygame.time.Clock()
 running = True
 small = 15
@@ -28,8 +34,8 @@ while running:
         if event.type == pygame.QUIT:
             running = False
 
-    screen.fill("#7B3F00")
-    pygame.draw.circle(screen, "green", player_pos, player.size)
+    screen.blit(acht, (0,0))
+    cirkelding = pygame.draw.circle(screen, "green", player_pos, player.size)
     keys = pygame.key.get_pressed()
     if keys[pygame.K_UP]:
         player_pos.y -= player.speed
@@ -65,8 +71,8 @@ while running:
         if enemy_pos.y > player_pos.y:
             enemy_pos.y -= melee_enemy.speed
 
-        enemy_movement(enemy1)
-        enemy_movement(enemy2)
+    enemy_movement(enemy1)
+    enemy_movement(enemy2)
 
     # if enemy1.x < player_pos.x:
     #     enemy1.x += melee_enemy.speed
