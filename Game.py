@@ -62,7 +62,7 @@ while running:
 
     
     def enemy_movement(enemy_pos):  
-        if math.dist((enemy_pos), (player_pos)) > 50:  
+        if math.dist((enemy_pos), (player_pos)) >= 50:  
             if enemy_pos.x < player_pos.x:
                 enemy_pos.x += melee_enemy.speed
             if enemy_pos.y < player_pos.y:
