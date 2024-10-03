@@ -43,9 +43,6 @@ def timer():
             tijd -=1
             time.sleep(1)
 
-
-    print('tijd voor nieuwe enemy')
-
 timer_thread = threading.Thread(target = timer)
 timer_thread.start()
 
