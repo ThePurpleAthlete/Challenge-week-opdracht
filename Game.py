@@ -33,7 +33,7 @@ class enemy(entity):
 class player(entity):
     def __init__(character, name, size, hp, damage, speed):
         super().__init__(name, size, hp, damage, speed)
-       
+
 
 player = player("player", medium, 50, 10, 300 * dt)
 melee_enemy = enemy("melee_enemy", medium, 30, 10, 150 * dt)
@@ -45,7 +45,7 @@ while running:
             running = False
 
     screen.blit(acht, (0,0))
-    cirkelding = pygame.draw.circle(screen, "green", player_pos, player.size)
+    green_dot = pygame.draw.circle(screen, "green", player_pos, player.size)
     keys = pygame.key.get_pressed()
     if keys[pygame.K_UP]:
         player_pos.y -= player.speed
@@ -71,7 +71,7 @@ while running:
     pygame.draw.circle(screen, "red", enemy2, melee_enemy.size)
 
     
-    def enemy_movement(enemy_pos):  
+    def melee_enemy_movement(enemy_pos):  
         if math.dist((enemy_pos), (player_pos)) >= 50:  
             if enemy_pos.x < player_pos.x:
                 enemy_pos.x += melee_enemy.speed
@@ -81,9 +81,10 @@ while running:
                 enemy_pos.x -= melee_enemy.speed
             if enemy_pos.y > player_pos.y:
                 enemy_pos.y -= melee_enemy.speed
+        
 
-    enemy_movement(enemy1)
-    enemy_movement(enemy2)
+    melee_enemy_movement(enemy1)
+    melee_enemy_movement(enemy2)
 
 
         
@@ -106,4 +107,4 @@ pygame.quit()
 # hitbox
 # spawn timer
 # add new enemies after timer
-# hits 
+# hits
