@@ -2,12 +2,13 @@ import pygame
 import random
 import time
 import math
+import threading
 pygame.init()
 
 height = 1280
 width = 720
 screen = pygame.display.set_mode((height, width))
-pygame.display.set_caption('achtergrond')
+pygame.display.set_caption('gimma')
 acht = pygame.image.load(r"achtergrond.png").convert()
 
 clock = pygame.time.Clock()
@@ -33,7 +34,20 @@ class enemy(entity):
 class player(entity):
     def __init__(character, name, size, hp, damage, speed):
         super().__init__(name, size, hp, damage, speed)
+       
+def timer():
+    global tijd
+    tijd = 10
+    while tijd >= 0:
+        for x in range(10):
+            tijd -=1
+            time.sleep(1)
 
+
+    print('tijd voor nieuwe enemy')
+
+timer_thread = threading.Thread(target = timer)
+timer_thread.start()
 
 player = player("player", medium, 50, 10, 300 * dt)
 melee_enemy = enemy("melee_enemy", medium, 30, 10, 150 * dt)
@@ -99,6 +113,9 @@ while running:
     border(enemy1)
     border(enemy2)
 
+    if tijd <= 0:
+        print('wow')
+        tijd = 10
 
     pygame.display.flip()
     dt = clock.tick(60) / 1000
