@@ -65,7 +65,7 @@ def border(player_pos):
 
 player = player("player", 25, 60, 10, 300 * dt)
 melee_enemy = enemy("melee_enemy", 25, 50, 10, 150 * dt)
-ranged_enemy = enemy("renged_enemy", 15, 20, 15, 150 * dt)
+ranged_enemy = enemy("ranged_enemy", 15, 20, 15, 150 * dt)
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 
 
@@ -77,19 +77,20 @@ while running:
     screen.blit(acht, (0,0))
     green_dot = pygame.draw.circle(screen, "green", player_pos, player.size)
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_UP]:
+    if keys[pygame.K_UP] or [pygame.K_w]:
         player_pos.y -= player.speed
-    if keys[pygame.K_DOWN]:
+    if keys[pygame.K_DOWN] or [pygame.K_s]:
         player_pos.y += player.speed
-    if keys[pygame.K_LEFT]:
+    if keys[pygame.K_LEFT] or [pygame.K_a]:
         player_pos.x -= player.speed
-    if keys[pygame.K_RIGHT]:
+    if keys[pygame.K_RIGHT] or [pygame.K_d]:
         player_pos.x += player.speed
     
     
     if a == 1:
         enemy_pos = pygame.Vector2(random.randint(0, 1280), random.randint(0, 720))
         a = a - 1
+        
     draw(melee_enemy)
     melee_enemy_movement(enemy_pos)
 
