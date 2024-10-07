@@ -77,13 +77,13 @@ while running:
     screen.blit(acht, (0,0))
     green_dot = pygame.draw.circle(screen, "green", player_pos, player.size)
     keys = pygame.key.get_pressed()
-    if keys[pygame.K_UP] or [pygame.K_w]:
+    if keys[pygame.K_UP]:
         player_pos.y -= player.speed
-    if keys[pygame.K_DOWN] or [pygame.K_s]:
+    if keys[pygame.K_DOWN]:
         player_pos.y += player.speed
-    if keys[pygame.K_LEFT] or [pygame.K_a]:
+    if keys[pygame.K_LEFT]:
         player_pos.x -= player.speed
-    if keys[pygame.K_RIGHT] or [pygame.K_d]:
+    if keys[pygame.K_RIGHT]:
         player_pos.x += player.speed
     
     
