@@ -82,9 +82,9 @@ while running:
 
     if keys[pygame.K_UP] or [pygame.K_w]:
         player_pos.y -= player.speed
-    if keys[pygame.K_DOWN] or [pygame.K_s]:
+    if keys[pygame.K_DOWN]:
         player_pos.y += player.speed
-    if keys[pygame.K_LEFT] or [pygame.K_a]:
+    if keys[pygame.K_LEFT]:
         player_pos.x -= player.speed
     if keys[pygame.K_RIGHT] or [pygame.K_d]:
 
