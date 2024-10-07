@@ -40,7 +40,7 @@ def spawn_timer():
         for x in range(spawn_tijd):
             spawn_tijd -=1
             time.sleep(1)
-spawn_timer_thread = threading.Thread(target = spawn_timer)
+spawn_timer_thread = threading.Thread(target = spawn_timer, daemon=True)
 spawn_timer_thread.start()
 
 
