@@ -1,5 +1,8 @@
+
 import pygame, sys
+
 from button import Button
+
 
 pygame.init()
 
@@ -28,7 +31,6 @@ def main_menu():
                         
                             
                             
-
         OPTIONS_BUTTON = Button(image = pygame.image.load("DAREALBUTTON (1).png"), pos=(640, 400), 
                             text_input="OPTIONS", font=get_font(75), base_color="white", hovering_color="green")
         QUIT_BUTTON = Button(image = pygame.image.load("DAREALBUTTON (1).png"), pos=(640, 550), 
@@ -64,9 +66,7 @@ def play():
 
         SCREEN.fill("black")
 
-        PLAY_TEXT = get_font(45).render("This is the PLAY screen.", True, "White")
-        PLAY_RECT = PLAY_TEXT.get_rect(center=(640, 260))
-        SCREEN.blit(PLAY_TEXT, PLAY_RECT)
+        import Game
 
         PLAY_BACK = Button(image=None, pos=(640, 460), 
                             text_input="BACK", font=get_font(75), base_color="White", hovering_color="Green")
@@ -114,3 +114,4 @@ def options():
 
 main_menu()
 
+import Game
