@@ -40,7 +40,7 @@ def spawn_timer():
         for x in range(spawn_tijd):
             spawn_tijd -=1
             time.sleep(1)
-spawn_timer_thread = threading.Thread(target = spawn_timer)
+spawn_timer_thread = threading.Thread(target = spawn_timer, daemon=True)
 spawn_timer_thread.start()
 
 
@@ -82,9 +82,9 @@ while running:
 
     if keys[pygame.K_UP] or [pygame.K_w]:
         player_pos.y -= player.speed
-    if keys[pygame.K_DOWN]:
+    if keys[pygame.K_DOWN] or keys[pygame.K_s]:
         player_pos.y += player.speed
-    if keys[pygame.K_LEFT]:
+    if keys[pygame.K_LEFT] or keys[pygame.K_a]:
         player_pos.x -= player.speed
     if keys[pygame.K_RIGHT] or [pygame.K_d]:
 
