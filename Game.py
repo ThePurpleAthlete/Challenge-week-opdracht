@@ -100,9 +100,15 @@ def melee_enemy_movement(enemy_pos):
             enemy_pos.x -= melee_enemy.speed
         if enemy_pos.y > player_pos.y:
             enemy_pos.y -= melee_enemy.speed
-
-        # if math.dist((enemy_pos), (player_pos)) < player.size + melee_enemy.size:
-
+    elif math.dist((enemy_pos), (player_pos)) < player.size + melee_enemy.size:
+        if enemy_pos.x > player_pos.x:
+            enemy_pos.x += melee_enemy.speed
+        if enemy_pos.y > player_pos.y:
+            enemy_pos.y += melee_enemy.speed
+        if enemy_pos.x < player_pos.x:
+            enemy_pos.x -= melee_enemy.speed
+        if enemy_pos.y < player_pos.y:
+            enemy_pos.y -= melee_enemy.speed
 
 def border(player_pos):
     if player_pos.x < 0:
