@@ -15,31 +15,62 @@ running = True
 dt = clock.tick(300) / 1000
 a = 2
 
+class object:
+    def __init__(self, size, damage):
+        self.size = size
+        self.damage = damage
+
 class entity:
-    def __init__(character, name, size, max_hp, damage, speed): 
+    def __init__(character, name, size, hp, damage, speed): 
         character.name = name
         character.size = size
-        character.max_hp = max_hp
+        character.hp = hp
         character.damage = damage
         character.speed = speed
 
 
 class enemy(entity):
-    def __init__(character, name, size, max_hp, damage, speed):
-        super().__init__(name, size, max_hp, damage, speed)
+    def __init__(character, name, size, hp, damage, speed):
+        super().__init__(name, size, hp, damage, speed)
 
 
-class player(entity):
-    def __init__(character, name, size, max_hp, damage, speed):
-        super().__init__(name, size, max_hp, damage, speed)
+class character(entity):
+    def __init__(character, name, size, hp, damage, speed):
+        super().__init__(name, size, hp, damage, speed)
 
-player = player("player", 25, 60, 10, 300 * dt)
-melee_enemy = enemy("melee_enemy", 25, 50, 10, 150 * dt)
+player = character("player", 25, 60, 10, 300 * dt)
+melee_enemy1 = enemy("melee_enemy", 25, 50, 10, 150 * dt)
+melee_enemy2 = enemy("melee_enemy", 25, 50, 10, 150 * dt)
 ranged_enemy = enemy("ranged_enemy", 15, 20, 15, 150 * dt)
+sword = object(15, 10)
 
-def draw(enemy):
-    pygame.draw.circle(screen, "red", enemy_pos1, enemy.size)
-    pygame.draw.circle(screen, "red", enemy_pos2, enemy.size)
+def hp_down_enemy(enemy_hp, sword_damage, sword_pos, enemy_pos, sword_size, enemy_size):
+    score = 0
+    if math.dist((sword_pos), (enemy_pos)) < sword_size + enemy_size:
+        enemy_hp = enemy_hp - sword_damage
+        
+        if enemy_hp <= 0:
+            score = score + 10
+            enemy_pos = pygame.Vector2(random.randint(0, 1280), random.randint(0, 720))
+        
+        if enemy_pos.x > player_pos.x:
+            enemy_pos.x += 900 * dt
+        if enemy_pos.y > player_pos.y:
+            enemy_pos.y += 900 * dt
+        if enemy_pos.x < player_pos.x:
+            enemy_pos.x -= 900 * dt
+        if enemy_pos.y < player_pos.y:
+            enemy_pos.y -= 900 * dt
+        
+        return enemy_hp
+    return score
+
+def easier_hit(enemy_pos, melee_enemy):
+        hp_down_enemy(melee_enemy.hp, 10, sword_pos, enemy_pos, 15, 25)
+            
+
+def draw(enemy_pos, melee_enemy):
+    pygame.draw.circle(screen, "red", enemy_pos, melee_enemy.size)
 
 
 def spawn_timer():
@@ -50,7 +81,7 @@ def spawn_timer():
             spawn_tijd -= 1
             time.sleep(1)
 
-def melee_enemy_hitbox(enemy_pos1, enemy_pos2):
+def melee_enemy_hitbox(enemy_pos1, enemy_pos2, melee_enemy):
     if math.dist((enemy_pos1), (enemy_pos2)) < melee_enemy.size + melee_enemy.size:
         if enemy_pos1.x < enemy_pos2.x:
             enemy_pos1.x -= 0.5 * melee_enemy.speed
@@ -92,7 +123,7 @@ spawn_timer_thread = threading.Thread(target=spawn_timer, daemon=True)
 spawn_timer_thread.start()
 
 
-def melee_enemy_movement(enemy_pos):
+def melee_enemy_movement(enemy_pos, melee_enemy):
     if math.dist((enemy_pos), (player_pos)) >= player.size + melee_enemy.size:
         if enemy_pos.x < player_pos.x:
             enemy_pos.x += melee_enemy.speed
@@ -123,7 +154,6 @@ def border(player_pos):
         player_pos.y = 720
 
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
-
 sword_pos = pygame.Vector2(screen.get_width() / 2 + 30, screen.get_height() / 2 + 30)
 
 
@@ -152,6 +182,7 @@ while running:
         a = a - 1
 
     sword = pygame.draw.circle(screen, "purple", sword_pos, 15)
+    
     while math.dist((sword_pos), (player_pos)) > 50:
         keys = pygame.key.get_pressed()
         if keys[pygame.K_UP] or keys[pygame.K_w]:
@@ -165,10 +196,14 @@ while running:
 
 
 
-    melee_enemy_hitbox(enemy_pos1, enemy_pos2)
-    draw(melee_enemy)
-    melee_enemy_movement(enemy_pos1)
-    melee_enemy_movement(enemy_pos2)
+    melee_enemy_hitbox(enemy_pos1, enemy_pos2, melee_enemy1)
+    melee_enemy_hitbox(enemy_pos1, enemy_pos2, melee_enemy2)
+    draw(enemy_pos1, melee_enemy1)
+    draw(enemy_pos2, melee_enemy1)
+    melee_enemy_movement(enemy_pos1, melee_enemy1)
+    melee_enemy_movement(enemy_pos2, melee_enemy2)
+    easier_hit(enemy_pos1, melee_enemy1)
+    easier_hit(enemy_pos2, melee_enemy2)
 
     border(sword_pos)
     border(player_pos)
