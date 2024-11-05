@@ -12,28 +12,30 @@ acht = pygame.image.load(r"achtergrond.png").convert()
 
 clock = pygame.time.Clock()
 running = True
-dt = clock.tick(60) / 1000
+dt = clock.tick(300) / 1000
 a = 2
 
 class entity:
-    def __init__(character, name, size, hp, damage, speed): 
+    def __init__(character, name, size, max_hp, damage, speed): 
         character.name = name
         character.size = size
-        character.hp = hp
+        character.max_hp = max_hp
         character.damage = damage
         character.speed = speed
 
 
 class enemy(entity):
-    def __init__(character, name, size, hp, damage, speed):
-        super().__init__(name, size, hp, damage, speed)
+    def __init__(character, name, size, max_hp, damage, speed):
+        super().__init__(name, size, max_hp, damage, speed)
 
 
 class player(entity):
-    def __init__(character, name, size, hp, damage, speed):
-        super().__init__(name, size, hp, damage, speed)
+    def __init__(character, name, size, max_hp, damage, speed):
+        super().__init__(name, size, max_hp, damage, speed)
 
-
+player = player("player", 25, 60, 10, 300 * dt)
+melee_enemy = enemy("melee_enemy", 25, 50, 10, 150 * dt)
+ranged_enemy = enemy("ranged_enemy", 15, 20, 15, 150 * dt)
 
 def draw(enemy):
     pygame.draw.circle(screen, "red", enemy_pos1, enemy.size)
@@ -120,10 +122,6 @@ def border(player_pos):
     if player_pos.y > 720:
         player_pos.y = 720
 
-
-player = player("player", 25, 60, 10, 300 * dt)
-melee_enemy = enemy("melee_enemy", 25, 50, 10, 150 * dt)
-ranged_enemy = enemy("ranged_enemy", 15, 20, 15, 150 * dt)
 player_pos = pygame.Vector2(screen.get_width() / 2, screen.get_height() / 2)
 
 sword_pos = pygame.Vector2(screen.get_width() / 2 + 30, screen.get_height() / 2 + 30)
@@ -182,7 +180,7 @@ while running:
         spawn_tijd = 10
 
     pygame.display.flip()
-    dt = clock.tick(60) / 1000
+    dt = clock.tick(300) / 1000
 pygame.quit()
 
 # hitbox
